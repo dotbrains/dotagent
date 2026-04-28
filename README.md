@@ -1,4 +1,4 @@
-# DotAgent
+# DotAgent 🤖
 
 [![CI](https://github.com/dotbrains/dotagent/actions/workflows/ci.yml/badge.svg)](https://github.com/dotbrains/dotagent/actions/workflows/ci.yml)
 [![Release](https://github.com/dotbrains/dotagent/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/dotagent/actions/workflows/release.yml)
