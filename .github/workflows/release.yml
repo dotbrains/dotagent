@@ -1,0 +1,82 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Run tests
+        run: cargo test --locked --all-targets
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Run clippy
+        run: cargo clippy --locked --workspace --all-targets --all-features -- -D warnings
+
+  create_release:
+    needs: [test, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+
+  upload_assets:
+    needs: create_release
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Build release binary
+        run: cargo build --locked --release
+
+      - name: Package release artifact
+        id: package
+        shell: bash
+        run: |
+          BIN=dotagent
+          ARCHIVE="${BIN}_${RUNNER_OS}_${RUNNER_ARCH}.tar.gz"
+          mkdir -p dist
+          tar -czf "dist/${ARCHIVE}" -C target/release "${BIN}"
+          echo "archive=dist/${ARCHIVE}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.package.outputs.archive }}

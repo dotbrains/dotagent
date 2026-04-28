@@ -1,0 +1,18 @@
+[package]
+name = "dotagent"
+version = "0.1.0"
+edition = "2021"
+description = "A tiny code-editing agent in Rust"
+license-file = "LICENSE"
+
+[dependencies]
+anyhow = "1.0.100"
+ctrlc = "3.5.0"
+reqwest = { version = "0.12.24", features = ["blocking", "json", "rustls-tls"] }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.145"
+walkdir = "2.5.0"
+
+[dev-dependencies]
+serial_test = "3.2.0"
+tempfile = "3.23.0"
