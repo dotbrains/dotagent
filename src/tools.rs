@@ -124,7 +124,9 @@ struct ListFilesArgs {
 }
 
 fn list_files(path: Option<String>) -> Result<String> {
-    let root = path.filter(|p| !p.is_empty()).unwrap_or_else(|| ".".to_string());
+    let root = path
+        .filter(|p| !p.is_empty())
+        .unwrap_or_else(|| ".".to_string());
     let root_path = Path::new(&root);
 
     if !root_path.exists() {
@@ -137,7 +139,8 @@ fn list_files(path: Option<String>) -> Result<String> {
     let mut out = Vec::new();
 
     for entry in WalkDir::new(root_path).min_depth(1) {
-        let entry = entry.with_context(|| format!("failed to read directory entry under {root}"))?;
+        let entry =
+            entry.with_context(|| format!("failed to read directory entry under {root}"))?;
         let rel = entry
             .path()
             .strip_prefix(root_path)
@@ -182,15 +185,15 @@ fn edit_file(path: &str, old_str: &str, new_str: &str) -> Result<String> {
             }
 
             let replaced = content.replacen(old_str, new_str, 1);
-            fs::write(&file_path, replaced).with_context(|| format!("failed to write file: {path}"))?;
+            fs::write(&file_path, replaced)
+                .with_context(|| format!("failed to write file: {path}"))?;
             Ok("OK".to_string())
         }
         Err(err) if err.kind() == std::io::ErrorKind::NotFound => {
             if old_str.is_empty() {
                 if let Some(parent) = file_path.parent() {
-                    fs::create_dir_all(parent).with_context(|| {
-                        format!("failed to create parent directory for {path}")
-                    })?;
+                    fs::create_dir_all(parent)
+                        .with_context(|| format!("failed to create parent directory for {path}"))?;
                 }
                 fs::write(&file_path, new_str)
                     .with_context(|| format!("failed to write file: {path}"))?;

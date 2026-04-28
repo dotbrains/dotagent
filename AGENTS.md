@@ -1,6 +1,6 @@
 # Agent Workflow for DotAgent
 
-This project is a Rust clone of teenycode. Use `cargo` for all development and verification workflows.
+This project is a Rust CLI coding agent. Use `cargo` for all development and verification workflows.
 
 ## Cargo Workflow
 
@@ -29,7 +29,7 @@ GitHub Actions workflows in this repository run equivalent checks:
 ## Common Pitfalls
 
 - Do not bypass `cargo` with ad-hoc build scripts when standard Cargo commands are sufficient.
-- Keep behavior parity with teenycode for tool names, tool semantics, and CLI ergonomics.
+- Keep behavior parity for tool names, tool semantics, and CLI ergonomics.
 - When changing file-tool behavior, update tests in `tests/tools_test.rs` and `tests/env_test.rs`.
 
 ## Review Checklist for Agents

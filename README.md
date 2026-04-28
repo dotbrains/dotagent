@@ -68,6 +68,20 @@ cargo test
 cargo clippy --all-targets --all-features -- -D warnings
 ```
 
+## Pre-commit hooks
+
+Install the repository hooks:
+
+```sh
+./scripts/setup-hooks.sh
+```
+
+This enables a `pre-commit` hook that runs:
+
+- `cargo fmt --all -- --check`
+- `cargo clippy --workspace --all-targets --all-features -- -D warnings`
+- `cargo test --all-targets`
+
 ## Acknowledgements
 
 Adapted from [How to Build an Agent](https://ampcode.com/notes/how-to-build-an-agent) by Amp.

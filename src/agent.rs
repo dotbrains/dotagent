@@ -77,7 +77,10 @@ pub fn run_agent(tools: Vec<ToolSpec>) -> Result<()> {
         }
 
         let trimmed = user_input.trim();
-        if matches!(trimmed.to_ascii_lowercase().as_str(), "exit" | "quit" | ":q") {
+        if matches!(
+            trimmed.to_ascii_lowercase().as_str(),
+            "exit" | "quit" | ":q"
+        ) {
             println!("Goodbye!\n");
             return Ok(());
         }
@@ -137,7 +140,10 @@ pub fn run_agent(tools: Vec<ToolSpec>) -> Result<()> {
                     continue;
                 }
 
-                println!("Tool: {}({})\n", call.function.name, call.function.arguments);
+                println!(
+                    "Tool: {}({})\n",
+                    call.function.name, call.function.arguments
+                );
 
                 let result = if !known_tool_names.contains(call.function.name.as_str()) {
                     format!("ERROR: Unknown tool: {}", call.function.name)
