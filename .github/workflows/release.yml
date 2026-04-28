@@ -40,9 +40,23 @@ jobs:
 
       - name: Run clippy
         run: cargo clippy --locked --workspace --all-targets --all-features -- -D warnings
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Build
+        run: cargo build --locked --release
 
   create_release:
-    needs: [test, lint]
+    needs: [test, lint, build]
     runs-on: ubuntu-latest
     steps:
       - name: Create release
