@@ -1,7 +1,7 @@
 # DotAgent 🤖
 
-[![CI](https://github.com/dotbrains/dotagent/actions/workflows/ci.yml/badge.svg)](https://github.com/dotbrains/dotagent/actions/workflows/ci.yml)
-[![Release](https://github.com/dotbrains/dotagent/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/dotagent/actions/workflows/release.yml)
+[![CI](https://github.com/smeltery/dotagent/actions/workflows/ci.yml/badge.svg)](https://github.com/smeltery/dotagent/actions/workflows/ci.yml)
+[![Release](https://github.com/smeltery/dotagent/actions/workflows/release.yml/badge.svg)](https://github.com/smeltery/dotagent/actions/workflows/release.yml)
 [![License: PolyForm Shield 1.0.0](https://img.shields.io/badge/License-PolyForm%20Shield%201.0.0-blue.svg)](https://polyformproject.org/licenses/shield/1.0.0/)
 
 ![Rust](https://img.shields.io/badge/-Rust-000000?style=flat-square&logo=rust&logoColor=white)
