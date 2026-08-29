@@ -33,12 +33,16 @@ This repository is for **educational purposes**, to demonstrate the core element
 
 ```sh
 export OPENAI_API_KEY=sk-...
-cargo run
+mbx run
 ```
 
 Or put `OPENAI_API_KEY=sk-...` in a `.env` file in the directory where you run the binary.
 
 If `OPENAI_API_KEY` is missing, the CLI prints setup instructions and exits.
+
+Developer compile/test/clippy commands use
+[mr boxington](https://mr-boxington.jdx.dev) (`mbx`); keep `cargo fmt` /
+`cargo install` as plain `cargo`.
 
 ## How it works (quick tour)
 
@@ -64,8 +68,8 @@ Conventions:
 
 ```sh
 cargo fmt
-cargo test
-cargo clippy --all-targets --all-features -- -D warnings
+mbx test
+mbx clippy --all-targets --all-features -- -D warnings
 ```
 
 ## Pre-commit hooks
@@ -79,8 +83,8 @@ Install the repository hooks:
 This enables a `pre-commit` hook that runs:
 
 - `cargo fmt --all -- --check`
-- `cargo clippy --workspace --all-targets --all-features -- -D warnings`
-- `cargo test --all-targets`
+- `mbx clippy --workspace --all-targets --all-features -- -D warnings`
+- `mbx test --all-targets`
 
 ## Acknowledgements
 

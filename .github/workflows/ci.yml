@@ -9,6 +9,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   test:
     strategy:
@@ -21,10 +24,10 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: jdx/mr-boxington-action@v1
 
       - name: Run tests
-        run: cargo test --locked --all-targets
+        run: mbx test --locked --all-targets
 
   lint:
     runs-on: ubuntu-latest
@@ -36,13 +39,13 @@ jobs:
         with:
           components: rustfmt, clippy
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: jdx/mr-boxington-action@v1
 
       - name: Check formatting
         run: cargo fmt --all -- --check
 
       - name: Run clippy
-        run: cargo clippy --locked --workspace --all-targets --all-features -- -D warnings
+        run: mbx clippy --locked --workspace --all-targets --all-features -- -D warnings
 
   build:
     strategy:
@@ -55,7 +58,7 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: jdx/mr-boxington-action@v1
 
       - name: Build
-        run: cargo build --locked --release
+        run: mbx build --locked --release

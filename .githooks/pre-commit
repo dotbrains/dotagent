@@ -4,6 +4,6 @@ set -euo pipefail
 
 echo "Running pre-commit checks..."
 cargo fmt --all -- --check
-cargo clippy --workspace --all-targets --all-features -- -D warnings
-cargo test --all-targets
+mbx clippy --workspace --all-targets --all-features -- -D warnings
+mbx test --all-targets
 echo "Pre-commit checks passed."

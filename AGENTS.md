@@ -1,23 +1,25 @@
 # Agent Workflow for DotAgent
 
-This project is a Rust CLI coding agent. Use `cargo` for all development and verification workflows.
+This project is a Rust CLI coding agent. Use [mr boxington](https://mr-boxington.jdx.dev)
+(`mbx`) for compiling Cargo commands so worktrees share one cache. Keep
+`cargo fmt` and `cargo install` as plain `cargo`.
 
 ## Cargo Workflow
 
-`cargo` is the primary CLI for the full development lifecycle.
+`mbx` wraps compiling cargo subcommands; `cargo fmt` stays plain.
 
 ### Develop
 
-- `cargo check` - Fast compile checks
-- `cargo test` - Run tests
+- `mbx check` - Fast compile checks
+- `mbx test` - Run tests
 - `cargo fmt` - Format code
-- `cargo clippy --workspace --all-targets --all-features -- -D warnings` - Lint with warnings as errors
+- `mbx clippy --workspace --all-targets --all-features -- -D warnings` - Lint with warnings as errors
 
 ### Build
 
-- `cargo build` - Debug build
-- `cargo build --release` - Optimized release build
-- `cargo run` - Run the CLI locally
+- `mbx build` - Debug build
+- `mbx build --release` - Optimized release build
+- `mbx run` - Run the CLI locally
 
 ## CI Integration
 
@@ -28,12 +30,12 @@ GitHub Actions workflows in this repository run equivalent checks:
 
 ## Common Pitfalls
 
-- Do not bypass `cargo` with ad-hoc build scripts when standard Cargo commands are sufficient.
+- Do not bypass `mbx`/`cargo` with ad-hoc build scripts when standard Cargo commands are sufficient.
 - Keep behavior parity for tool names, tool semantics, and CLI ergonomics.
 - When changing file-tool behavior, update tests in `tests/tools_test.rs` and `tests/env_test.rs`.
 
 ## Review Checklist for Agents
 
 - [ ] Run `cargo fmt`.
-- [ ] Run `cargo clippy --workspace --all-targets --all-features -- -D warnings`.
-- [ ] Run `cargo test`.
+- [ ] Run `mbx clippy --workspace --all-targets --all-features -- -D warnings`.
+- [ ] Run `mbx test`.
